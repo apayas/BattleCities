@@ -28,7 +28,13 @@ public class ScoringSystem : NetworkBehaviour {
     
     public  void displayScore(int delay,int side)
     {
-        if(side == 1)
+        //only one score can be displayed
+        if (this.score != null)
+        {
+            NetworkServer.Destroy(this.score);
+        }
+
+        if (side == 1)
         {
             team1Score++;
         }

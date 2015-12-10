@@ -158,6 +158,7 @@ public class LevelBuilder : NetworkBehaviour {
             NetworkServer.Destroy(obj.gameObject);
         }
         objects.Clear();
+        deleteBullets();
         BuildLevel(level);
     }
     public static void RestartLevelStatic()
@@ -169,6 +170,14 @@ public class LevelBuilder : NetworkBehaviour {
             NetworkServer.Destroy(spawner.tank.gameObject);
         }
         Component.FindObjectOfType<LevelBuilder>().RestartLevel();
+    }
+    public void deleteBullets()
+    {
+            foreach (Bullet bullet in FindObjectsOfType<Bullet>())
+            {
+                NetworkServer.Destroy(bullet.gameObject);
+            }
+     
     }
 }
 

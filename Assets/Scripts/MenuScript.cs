@@ -25,7 +25,8 @@ public class MenuScript : NetworkBehaviour {
         MyNetworkManager networkManager = FindObjectOfType<MyNetworkManager>();
         
         NetworkClient nc = networkManager.StartClient();
-        if (nc != null )
+        //нужна проверка подключился ли клиент или нет
+        if (nc != null)
         {
             FindObjectOfType<Canvas>().gameObject.SetActive(false);
         }

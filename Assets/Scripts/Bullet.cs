@@ -11,6 +11,7 @@ public class Bullet : NetworkBehaviour {
     float periodSvrRpc = 0.02f; //как часто сервер шлёт обновление картинки клиентам, с.
     float timeSvrRpcLast = 0; //когда последний раз сервер слал обновление картинки
 
+    public Component explosion;
     void OnTriggerEnter2D(Collider2D col)
     {
         if (this.isServer)
@@ -25,11 +26,20 @@ public class Bullet : NetworkBehaviour {
                 health.TakeDamageFromBullet(damage, this);
             }
             destroyed = true;
+
+
+            Component explosionInstance = Instantiate(
+                explosion,
+                transform.position,
+                new Quaternion()) as Component;
+            explosionInstance.GetComponent<Explosion>().bigExplosion = false;
+            NetworkServer.Spawn(explosionInstance.gameObject);
+            
         }
     }
     // Use this for initialization
     void Start () {
-	
+        GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
